@@ -56,8 +56,10 @@ extern DECLSPEC int SDLCALL SDL_GetGamma(float *red, float *green, float *blue);
 #define textdomain(x) while(false)
 #endif
 
-#if !defined(OpenBSD) && !defined(FreeBSD) && !defined(__APPLE__) && !defined(__serenity__)
+#if !defined(OpenBSD) && !defined(FreeBSD) && !defined(__APPLE__)
 static inline void strlcat(char *dest, const char *src, size_t n) { strncat(dest, src, n - 1); }
+#endif
+#if !defined(OpenBSD) && !defined(FreeBSD) && !defined(__APPLE__) && !defined(__serenity__)
 static inline void strlcpy(char *dest, const char *src, size_t n) { strncpy(dest, src, n); dest[n - 1] = 0; }
 #endif
 
