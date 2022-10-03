@@ -48,23 +48,23 @@
 /* ########### spawn point types ######## */
 
 #define SPW_HAZARD	0
-	#define HAZARD_LAVABALL			0
-	#define HAZARD_ROCKFALL 		1
-	#define HAZARD_BOMBS			2
-	#define HAZARD_EXPLOSION		3
-	#define HAZARD_POWERBULLETS		4
-	#define HAZARD_STALAGTITES		5
+#define HAZARD_LAVABALL			0
+#define HAZARD_ROCKFALL 		1
+#define HAZARD_BOMBS			2
+#define HAZARD_EXPLOSION		3
+#define HAZARD_POWERBULLETS		4
+#define HAZARD_STALAGTITES		5
 
 #define SPW_ENEMY		1
 
 #define SPW_ITEM		2
 
 #define SPW_BOSSBULLET	3
-	#define BOSSBULLET1		1
-	#define BOSSBULLET2		2
-	#define BOSSBULLET3		3
-	#define BOSSBULLET4		4
-	#define BOSSBULLET5		5
+#define BOSSBULLET1		1
+#define BOSSBULLET2		2
+#define BOSSBULLET3		3
+#define BOSSBULLET4		4
+#define BOSSBULLET5		5
 
 #define SPW_NOSUBTYPE	-1
 
