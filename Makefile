@@ -18,7 +18,7 @@ LOCALEDIR ?= $(PREFIX)/share/locale/
 MEDAL_SERVER_HOST = www.parallelrealities.co.uk
 MEDAL_SERVER_PORT = 80
 
-CXXFLAGS += `pkg-config --cflags sdl2 SDL2_mixer SDL2_image SDL2_ttf SDL2_net` -DVERSION=$(VERSION) -DRELEASE=$(RELEASE) -DUSEPAK=$(USEPAK)
+CXXFLAGS += `pkg-config --cflags sdl2 SDL2_mixer SDL2_image SDL2_ttf SDL2_net` -DVERSION=$(VERSION) -DRELEASE=1 -DUSEPAK=0
 CXXFLAGS += -DPAKNAME=\"$(PAKNAME)\" -DPAKLOCATION=\"$(DATADIR)\" -DUNIX -DGAMEPLAYMANUAL=\"$(DOCDIR)index.html\" -Wall
 CXXFLAGS += -DLOCALEDIR=\"$(LOCALEDIR)\" -DMEDAL_SERVER_HOST=\"$(MEDAL_SERVER_HOST)\" -DMEDAL_SERVER_PORT=$(MEDAL_SERVER_PORT)
 LIBS = `pkg-config --libs sdl2 SDL2_mixer SDL2_image SDL2_ttf SDL2_net` -lz
@@ -63,8 +63,6 @@ OBJS += tankBoss.o teleporters.o title.o trains.o traps.o triggers.o
 OBJS += weapons.o widgets.o
 
 GAMEOBJS = $(OBJS) main.o
-MAPOBJS = $(OBJS) mapEditor.o
-PAKOBJS = CFileData.o pak.o
 
 LOCALE_MO = $(patsubst %.po,%.mo,$(wildcard locale/*.po))
 
@@ -83,25 +81,15 @@ all: $(ALL)
 # linking the program.
 $(PROG): $(GAMEOBJS)
 	$(CXX) $(LDFLAGS) $(GAMEOBJS) -o $(PROG) $(LIBS)
-	
-pak: $(PAKOBJS)
-	$(CXX) $(LDFLAGS) $(PAKOBJS) -o pak $(PAKLIBS)
+
 
 %.mo: %.po
 	msgfmt -c -o $@ $<
-
-mapeditor: $(MAPOBJS)
-	$(CXX) $(LDFLAGS) $(MAPOBJS) -o mapeditor $(LIBS)
 
 # cleaning everything that can be automatically recreated with "make".
 clean:
 	$(RM) $(GAMEOBJS) mapEditor.o pak.o $(PROG) $(PAKNAME) pak mapeditor $(LOCALE_MO)
 	
-$(PAKNAME): pak
-	./pak $(DATA) $(PAKNAME)
-
-buildpak: $(PAKNAME)
-
 # install
 install: $(ALL)
 	mkdir -p $(DESTDIR)$(BINDIR)
@@ -149,4 +137,4 @@ uninstall:
 		$(RM) $(LOCALEDIR)$$lang/LC_MESSAGES/$(PROG).mo; \
 	done
 
-.PHONY: all install uninstall clean buildpak
+.PHONY: all install uninstall clean
